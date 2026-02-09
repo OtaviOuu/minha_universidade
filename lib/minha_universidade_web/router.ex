@@ -42,6 +42,12 @@ defmodule MinhaUniversidadeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    scope "/disciplinas-professores" do
+      live "/", TeacherDisciplineLive.Index, :index
+      live "/:id", TeacherDisciplineLive.Show, :show
+    end
+
     auth_routes AuthController, MinhaUniversidade.Accounts.User, path: "/auth"
     sign_out_route AuthController
 
