@@ -9,6 +9,16 @@ defmodule MinhaUniversidade.Universities.Review do
     repo MinhaUniversidade.Repo
   end
 
+  actions do
+    defaults [:read, :destroy, :update]
+
+    create :create do
+      accept [:rating, :teacher_discipline_id]
+
+      change relate_actor(:user, allow_nil?: false)
+    end
+  end
+
   attributes do
     uuid_v7_primary_key :id
 
@@ -21,6 +31,11 @@ defmodule MinhaUniversidade.Universities.Review do
   end
 
   relationships do
+    belongs_to :user, MinhaUniversidade.Accounts.User do
+      source_attribute :user_id
+      destination_attribute :id
+    end
+
     belongs_to :teacher_discipline, MinhaUniversidade.Universities.TeacherDiscipline do
       source_attribute :teacher_discipline_id
       destination_attribute :id

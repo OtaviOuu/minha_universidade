@@ -289,6 +289,13 @@ defmodule MinhaUniversidade.Accounts.User do
     attribute :confirmed_at, :utc_datetime_usec
   end
 
+  relationships do
+    has_many :reviews, MinhaUniversidade.Universities.Review do
+      source_attribute :id
+      destination_attribute :user_id
+    end
+  end
+
   identities do
     identity :unique_email, [:email]
   end

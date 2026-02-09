@@ -9,6 +9,11 @@ defmodule MinhaUniversidade.Universities.TeacherDiscipline do
     repo MinhaUniversidade.Repo
   end
 
+  actions do
+    defaults [:create, :read, :destroy, :update]
+    default_accept [:teacher_id, :discipline_id]
+  end
+
   attributes do
     uuid_v7_primary_key :id
 

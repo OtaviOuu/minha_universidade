@@ -9,11 +9,21 @@ defmodule MinhaUniversidade.Universities.University do
     repo MinhaUniversidade.Repo
   end
 
+  actions do
+    defaults [:read, :destroy, :create, :update]
+    default_accept [:name, :logo_url, :acronym]
+  end
+
   attributes do
     uuid_v7_primary_key :id
 
     attribute :name, :string do
       description "The name of the university"
+    end
+
+    attribute :logo_url, :string do
+      description "The URL of the university's logo"
+      allow_nil? false
     end
 
     attribute :acronym, :string do
