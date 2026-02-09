@@ -22,7 +22,8 @@ defmodule MinhaUniversidade.Universities.Review do
         :enforces_attendance?,
         :enforces_attendance_comments,
         :geral_rating,
-        :geral_comments
+        :geral_comments,
+        :recommends?
       ]
 
       change relate_actor(:user, allow_nil?: false)

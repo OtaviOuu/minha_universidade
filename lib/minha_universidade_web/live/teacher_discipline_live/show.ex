@@ -2,7 +2,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
   use MinhaUniversidadeWeb, :live_view
 
   on_mount {MinhaUniversidadeWeb.LiveUserAuth, :current_user}
-  on_mount {MinhaUniversidadeWeb.LiveUserAuth, :live_user_optional}
+  on_mount {MinhaUniversidadeWeb.LiveUserAuth, :live_user_required}
 
   def mount(%{"slug" => slug}, _session, socket) do
     socket =
@@ -66,11 +66,6 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
                 field={@review_form[:exams_comments]}
                 type="textarea"
                 label="Comentário sobre avaliações"
-              />
-              <.input
-                field={@review_form[:recomends?]}
-                type="checkbox"
-                label="recomandaria para um amigo?"
               />
             </div>
           </div>
