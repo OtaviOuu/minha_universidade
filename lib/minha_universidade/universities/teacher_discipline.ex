@@ -36,4 +36,19 @@ defmodule MinhaUniversidade.Universities.TeacherDiscipline do
       destination_attribute :teacher_discipline_id
     end
   end
+
+  # carlos-almeida-mat101-usp-icmc
+  calculations do
+    calculate :slug,
+              :string,
+              expr(
+                fragment(
+                  "lower(replace(? || '-' || ? || '-' || ? || '-' || ?, ' ', '-'))",
+                  teacher.name,
+                  discipline.code,
+                  discipline.faculty.acronym,
+                  discipline.faculty.university.acronym
+                )
+              )
+  end
 end
