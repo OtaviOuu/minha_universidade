@@ -4,7 +4,11 @@ defmodule MinhaUniversidade.Accounts.User do
     domain: MinhaUniversidade.Accounts,
     data_layer: AshPostgres.DataLayer,
     authorizers: [Ash.Policy.Authorizer],
-    extensions: [AshAuthentication]
+    extensions: [AshAuthentication, AshAdmin.Resource]
+
+  admin do
+    actor? true
+  end
 
   authentication do
     add_ons do
