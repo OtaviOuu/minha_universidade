@@ -28,6 +28,14 @@ defmodule MinhaUniversidade.Universities.Review do
 
       change relate_actor(:user, allow_nil?: false)
     end
+
+    read :read_teacher_discipline do
+      argument :teacher_discipline_id, :uuid do
+        allow_nil? false
+      end
+
+      filter expr(teacher_discipline_id == ^arg(:teacher_discipline_id))
+    end
   end
 
   attributes do
