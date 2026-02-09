@@ -39,6 +39,7 @@ defmodule MinhaUniversidade.Universities.Review do
     belongs_to :teacher_discipline, MinhaUniversidade.Universities.TeacherDiscipline do
       source_attribute :teacher_discipline_id
       destination_attribute :id
+      allow_nil? false
     end
   end
 end

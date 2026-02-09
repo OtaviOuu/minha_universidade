@@ -1,7 +1,7 @@
 defmodule MinhaUniversidade.Universities do
   use Ash.Domain,
     otp_app: :minha_universidade,
-    extensions: [AshAdmin.Domain]
+    extensions: [AshAdmin.Domain, AshPhoenix]
 
   admin do
     show? true
@@ -11,7 +11,10 @@ defmodule MinhaUniversidade.Universities do
     resource MinhaUniversidade.Universities.University
     resource MinhaUniversidade.Universities.Teacher
     resource MinhaUniversidade.Universities.Discipline
-    resource MinhaUniversidade.Universities.Review
+
+    resource MinhaUniversidade.Universities.Review do
+      define :create_review, action: :create
+    end
 
     resource MinhaUniversidade.Universities.TeacherDiscipline do
       define :list_teacher_discipline, action: :read
