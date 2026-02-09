@@ -1,0 +1,5 @@
+professor   ->  várias universidades
+            ->  várias matérias
+
+
+matéria     ->  várias avaliações
