@@ -11,7 +11,11 @@ defmodule MinhaUniversidade.Universities.Discipline do
 
   actions do
     defaults [:read, :destroy, :create, :update]
-    default_accept [:name, :code]
+    default_accept [:name, :code, :faculty_id]
+  end
+
+  preparations do
+    prepare build(load: [:faculty])
   end
 
   attributes do
@@ -31,6 +35,11 @@ defmodule MinhaUniversidade.Universities.Discipline do
   end
 
   relationships do
+    belongs_to :faculty, MinhaUniversidade.Universities.Faculty do
+      source_attribute :faculty_id
+      destination_attribute :id
+    end
+
     many_to_many :teachers, MinhaUniversidade.Universities.Teacher do
       through MinhaUniversidade.Universities.TeacherDiscipline
       source_attribute_on_join_resource :discipline_id

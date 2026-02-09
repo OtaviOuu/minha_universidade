@@ -16,5 +16,7 @@ defmodule MinhaUniversidade.Universities do
     resource MinhaUniversidade.Universities.TeacherDiscipline do
       define :list_teacher_discipline_reviews, action: :read
     end
+
+    resource MinhaUniversidade.Universities.Faculty
   end
 end

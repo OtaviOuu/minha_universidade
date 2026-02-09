@@ -21,11 +21,6 @@ defmodule MinhaUniversidade.Universities.University do
       description "The name of the university"
     end
 
-    attribute :faculty, :string do
-      allow_nil? true
-      description "The faculty of the university"
-    end
-
     attribute :logo_url, :string do
       description "The URL of the university's logo"
       allow_nil? false
@@ -36,5 +31,12 @@ defmodule MinhaUniversidade.Universities.University do
     end
 
     timestamps()
+  end
+
+  relationships do
+    has_many :faculties, MinhaUniversidade.Universities.Faculty do
+      source_attribute :id
+      destination_attribute :university_id
+    end
   end
 end
