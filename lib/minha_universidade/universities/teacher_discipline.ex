@@ -14,6 +14,10 @@ defmodule MinhaUniversidade.Universities.TeacherDiscipline do
     default_accept [:teacher_id, :discipline_id]
   end
 
+  preparations do
+    prepare build(load: [:slug])
+  end
+
   attributes do
     uuid_v7_primary_key :id
 

@@ -15,8 +15,8 @@ defmodule MinhaUniversidade.Universities do
 
     resource MinhaUniversidade.Universities.TeacherDiscipline do
       define :list_teacher_discipline, action: :read
-      define :get_teacher_discipline_by_teacher_id, action: :read, get_by: [:teacher_id]
-      define :get_teacher_discipline_by_discipline_id, action: :read, get_by: [:discipline_id]
+      define :get_teacher_discipline, action: :read, get_by: [:id]
+      define :get_teacher_discipline_by_slug, action: :read, get_by: [:slug]
     end
 
     resource MinhaUniversidade.Universities.Faculty

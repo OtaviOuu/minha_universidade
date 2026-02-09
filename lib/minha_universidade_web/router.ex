@@ -45,7 +45,7 @@ defmodule MinhaUniversidadeWeb.Router do
 
     scope "/disciplinas-professores" do
       live "/", TeacherDisciplineLive.Index, :index
-      live "/:id", TeacherDisciplineLive.Show, :show
+      live "/:slug", TeacherDisciplineLive.Show, :show
     end
 
     auth_routes AuthController, MinhaUniversidade.Accounts.User, path: "/auth"
