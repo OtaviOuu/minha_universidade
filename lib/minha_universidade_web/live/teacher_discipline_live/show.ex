@@ -35,113 +35,63 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
         <.discipline_teacher_data_card />
 
         <.form for={@review_form} phx-submit="submit_review">
-          <div class="flex flex-row justify-between gap-4 mb-4">
-            <.input
-              field={@review_form[:rating]}
-              type="number"
-              min="1"
-              max="5"
-              step="1"
-              label="Didática"
-              placeholder="Nota"
-              class="input input-secundary w-full"
-            />
-            <.input
-              field={@review_form[:rating]}
-              type="number"
-              min="1"
-              max="5"
-              step="1"
-              placeholder="Nota"
-              label="Didática"
-              class="input input-secundary w-full"
-            />
-            <.input
-              field={@review_form[:rating]}
-              type="number"
-              min="1"
-              max="5"
-              step="1"
-              placeholder="Nota"
-              label="Didática"
-              class="input input-secundary w-full"
-            />
-            <.input
-              field={@review_form[:rating]}
-              type="number"
-              min="1"
-              max="5"
-              step="1"
-              placeholder="Nota"
-              label="Didática"
-              class="input input-secundary w-full"
-            />
-            <.input
-              field={@review_form[:rating]}
-              type="number"
-              min="1"
-              max="5"
-              step="1"
-              label="Didática"
-              placeholder="Nota"
-              class="input input-secundary w-full"
-            />
-          </div>
-          <div class="flex flex-row justify-between gap-4 mb-4">
-            <.input
-              field={@review_form[:rating]}
-              type="checkbox"
-              label="cobra presença?"
-              placeholder="Nota"
-            />
-            <.input
-              field={@review_form[:rating]}
-              type="checkbox"
-              label="cobra presença?"
-              placeholder="Nota"
-            />
-            <.input
-              field={@review_form[:rating]}
-              type="checkbox"
-              label="cobra presença?"
-              placeholder="Nota"
-            />
-            <.input
-              field={@review_form[:rating]}
-              type="checkbox"
-              label="cobra presença?"
-              placeholder="Nota"
-            />
-          </div>
-          <div>
-            <.input
-              field={@review_form[:rating]}
-              type="textarea"
-              label="Comentário geral"
-              placeholder="Nota"
-              class="input input-secundary w-full"
-            />
-            <.input
-              field={@review_form[:rating]}
-              type="textarea"
-              label="Comentário avaliações"
-              placeholder="Nota"
-              class="input input-secundary w-full"
-            />
+          <div class="flex flex-row  gap-4 mb-4">
+            <div class="flex flex-col gap-4 ">
+              <.input
+                field={@review_form[:geral_comments]}
+                type="textarea"
+                label="Comentário geral"
+              />
+              <.input
+                field={@review_form[:recommends?]}
+                type="checkbox"
+                label="recomandaria para um amigo?"
+              />
+            </div>
+            <div class="flex flex-col gap-4 ">
+              <.input
+                field={@review_form[:enforces_attendance_comments]}
+                type="textarea"
+                label="Comentário sobre presença"
+              />
+              <.input
+                field={@review_form[:enforces_attendance?]}
+                type="checkbox"
+                label="cobra presença?"
+              />
+            </div>
 
+            <div class="flex flex-col gap-4 ">
+              <.input
+                field={@review_form[:exams_comments]}
+                type="textarea"
+                label="Comentário sobre avaliações"
+              />
+              <.input
+                field={@review_form[:recomends?]}
+                type="checkbox"
+                label="recomandaria para um amigo?"
+              />
+            </div>
+          </div>
+          <div class="flex flex-row justify-between gap-4">
             <.input
-              field={@review_form[:rating]}
-              type="textarea"
-              label="Comentário presença"
-              placeholder="Nota"
-              class="input input-secundary w-full h-24"
+              field={@review_form[:geral_rating]}
+              type="number"
+              label="Nota geral"
+              class="input input-secundary w-full"
             />
             <.input
-              field={@review_form[:rating]}
-              type="textarea"
-              label="Comentário presença"
-              placeholder="Nota"
-              class="input input-secundary w-full h-24"
+              field={@review_form[:didactics_rate]}
+              type="number"
+              label="Nota didática"
+              class="input input-secundary w-full"
+            />
+            <.input
+              field={@review_form[:exams_rate]}
+              type="number"
+              label="Nota avaliações"
+              class="input input-secundary w-full"
             />
           </div>
 

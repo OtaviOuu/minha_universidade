@@ -13,7 +13,17 @@ defmodule MinhaUniversidade.Universities.Review do
     defaults [:read, :destroy, :update]
 
     create :create do
-      accept [:rating, :teacher_discipline_id]
+      accept [
+        :teacher_discipline_id,
+        :user_id,
+        :didactics_rate,
+        :exams_rate,
+        :exams_comments,
+        :enforces_attendance?,
+        :enforces_attendance_comments,
+        :geral_rating,
+        :geral_comments
+      ]
 
       change relate_actor(:user, allow_nil?: false)
     end
@@ -22,8 +32,37 @@ defmodule MinhaUniversidade.Universities.Review do
   attributes do
     uuid_v7_primary_key :id
 
-    attribute :rating, :integer do
+    attribute :didactics_rate, :integer do
+      allow_nil? false
+    end
+
+    attribute :exams_rate, :integer do
+      allow_nil? false
+    end
+
+    attribute :exams_comments, :string do
+      allow_nil? false
+    end
+
+    attribute :enforces_attendance?, :boolean do
+      allow_nil? false
+    end
+
+    attribute :enforces_attendance_comments, :string do
+      allow_nil? false
+    end
+
+    attribute :geral_rating, :integer do
       description "The rating of the review"
+      allow_nil? false
+    end
+
+    attribute :geral_comments, :string do
+      allow_nil? false
+    end
+
+    attribute :recommends?, :boolean do
+      description "Whether the reviewer recommends the teacher or not"
       allow_nil? false
     end
 
