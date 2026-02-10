@@ -43,11 +43,16 @@ defmodule MinhaUniversidadeWeb.Router do
 
     get "/", PageController, :home
 
-    scope "/disciplinas-professores" do
-      live "/", TeacherDisciplineLive.Index, :index
-      live "/:slug", TeacherDisciplineLive.Show, :show
+    scope "/universidades" do
+      live "/", UniversidadesLive.Index, :index
+      # live "/:university_acronym", UniversidadesLive.Show, :show
 
-      live "/:slug/avaliar", TeacherDisciplineLive.New, :new
+      scope "/:university_acronym/disciplinas-professores" do
+        live "/", TeacherDisciplineLive.Index, :index
+        live "/:slug", TeacherDisciplineLive.Show, :show
+
+        live "/:slug/avaliar", TeacherDisciplineLive.New, :new
+      end
     end
 
     auth_routes AuthController, MinhaUniversidade.Accounts.User, path: "/auth"

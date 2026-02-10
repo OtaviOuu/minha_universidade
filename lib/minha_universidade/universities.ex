@@ -8,7 +8,11 @@ defmodule MinhaUniversidade.Universities do
   end
 
   resources do
-    resource MinhaUniversidade.Universities.University
+    resource MinhaUniversidade.Universities.University do
+      define :list_universities, action: :read
+      define :get_university_by_acronym, action: :read, get_by: [:acronym]
+    end
+
     resource MinhaUniversidade.Universities.Teacher
     resource MinhaUniversidade.Universities.Discipline
 
@@ -22,6 +26,11 @@ defmodule MinhaUniversidade.Universities do
 
     resource MinhaUniversidade.Universities.TeacherDiscipline do
       define :list_teacher_discipline, action: :read
+
+      define :list_teacher_discipline_by_university_acronym,
+        action: :read_by_university_acronym,
+        args: [:university_acronym]
+
       define :get_teacher_discipline, action: :read, get_by: [:id]
       define :get_teacher_discipline_by_slug, action: :read, get_by: [:slug]
     end

@@ -43,7 +43,7 @@ defmodule MinhaUniversidadeWeb.Layouts do
         </div>
       </div>
       <div class="navbar-center">
-        <a class="btn btn-ghost text-xl">MinhaUniversidade</a>
+        <.link navigate={~p"/universidades"} class="btn btn-ghost text-xl">MinhaUniversidade</.link>
       </div>
       <div class="navbar-end">
         <button class="btn btn-ghost btn-circle">

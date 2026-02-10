@@ -1,10 +1,11 @@
 defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
   use MinhaUniversidadeWeb, :live_view
 
-  def mount(%{"slug" => slug}, _session, socket) do
+  def mount(%{"slug" => slug, "university_acronym" => university_acronym}, _session, socket) do
     socket =
       socket
       |> assign(:slug, slug)
+      |> assign(:university_acronym, university_acronym)
       |> assign_teacher_discipline(slug)
       |> assign_reviews()
 
@@ -23,7 +24,12 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           Veja as avaliações e comentários de outros estudantes para ajudar a escolher as melhores opções para suas jornadas acadêmicas.
         </:subtitle>
         <:actions>
-          <.link navigate={~p"/disciplinas-professores/#{@slug}/avaliar"} class="btn btn-primary">
+          <.link
+            navigate={
+              ~p"/universidades/#{@university_acronym}/disciplinas-professores/#{@slug}/avaliar"
+            }
+            class="btn btn-primary"
+          >
             Avaliar
           </.link>
         </:actions>
@@ -46,7 +52,9 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
       {:error, reason} ->
         socket
         |> put_flash(:error, "Failed to load teacher discipline: #{reason}")
-        |> push_navigate(to: ~p"/disciplinas-professores")
+        |> push_navigate(
+          to: ~p"/universidades/#{socket.assigns.university_acronym}/disciplinas-professores"
+        )
     end
   end
 

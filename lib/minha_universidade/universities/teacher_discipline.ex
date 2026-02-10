@@ -10,8 +10,21 @@ defmodule MinhaUniversidade.Universities.TeacherDiscipline do
   end
 
   actions do
-    defaults [:create, :read, :destroy, :update]
+    defaults [:create, :destroy, :update]
     default_accept [:teacher_id, :discipline_id]
+
+    read :read do
+      primary? true
+    end
+
+    read :read_by_university_acronym do
+      argument :university_acronym, :string do
+        allow_nil? false
+      end
+
+      prepare build(load: [:teacher, discipline: [faculty: [:university]]])
+      filter expr(discipline.faculty.university.acronym == ^arg(:university_acronym))
+    end
   end
 
   preparations do

@@ -4,9 +4,11 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.New do
   on_mount {MinhaUniversidadeWeb.LiveUserAuth, :current_user}
   on_mount {MinhaUniversidadeWeb.LiveUserAuth, :live_user_required}
 
-  def mount(%{"slug" => slug}, _session, socket) do
+  def mount(%{"slug" => slug, "university_acronym" => university_acronym}, _session, socket) do
     socket =
       socket
+      |> assign(:university_acronym, university_acronym)
+      |> assign(:slug, slug)
       |> assign_teacher_discipline(slug)
       |> assign_review_form()
 
@@ -170,7 +172,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.New do
       {:error, _reason} ->
         socket
         |> put_flash(:error, "Failed to load teacher discipline")
-        |> push_navigate(to: ~p"/disciplinas-professores")
+        |> push_navigate(to: ~p"/universidades/#{socket.assigns.slug}/disciplinas-professores")
     end
   end
 
@@ -207,7 +209,8 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.New do
           socket
           |> put_flash(:info, "Avaliação enviada com sucesso!")
           |> push_navigate(
-            to: ~p"/disciplinas-professores/#{socket.assigns.teacher_discipline.slug}"
+            to:
+              ~p"/universidades/#{socket.assigns.university_acronym}/disciplinas-professores/#{socket.assigns.teacher_discipline.slug}"
           )
 
         {:noreply, socket}
