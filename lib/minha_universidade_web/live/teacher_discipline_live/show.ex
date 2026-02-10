@@ -91,7 +91,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
     <li class="list-row flex flex-col gap-2 cursor-pointer hover:bg-base-200 rounded-box p-4">
       <div class="modal cursor-default  " role="dialog" id={"review-#{@review.id}"}>
         <div class="modal-box w-11/12 max-w-5xl">
-          <.review_modal_contend review={@review} />
+          <.review_modal_content review={@review} />
           <div class="modal-action"></div>
 
           <a href="#" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 size">x</a>
@@ -133,16 +133,97 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
     """
   end
 
-  attr :review, :map, required: true
+  attr :review, :any, required: true
 
-  def review_modal_contend(assigns) do
+  def review_modal_content(assigns) do
     ~H"""
-    <.header>
-      Avaliação aa
-      <:subtitle>
-        Avaliação detalhada para ajudar outros estudantes a escolherem as melhores opções para suas jornadas acadêmicas.
-      </:subtitle>
-    </.header>
+    <div class="space-y-6">
+      <.header>
+        Avaliação
+        <:subtitle>
+          Avaliação detalhada para ajudar outros estudantes a escolherem melhores opções.
+        </:subtitle>
+      </.header>
+      
+    <!-- Geral -->
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h3 class="card-title">Comentário Geral</h3>
+          <p class="text-base-content/80 whitespace-pre-line">
+            {@review.geral_comments || "Nenhum comentário geral."}
+          </p>
+
+          <div class="mt-2">
+            <div class="badge badge-primary">
+              Nota geral: {@review.geral_rating || "-"}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <!-- Didática -->
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h3 class="card-title">Didática</h3>
+
+          <div class="mt-2">
+            <div class="badge badge-secondary">
+              Nota: {@review.didactics_rate || "-"}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <!-- Provas -->
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h3 class="card-title">Provas</h3>
+          <p class="text-base-content/80 whitespace-pre-line">
+            {@review.exams_comments || "Sem comentários sobre provas."}
+          </p>
+
+          <div class="mt-2">
+            <div class="badge badge-accent">
+              Nota: {@review.exams_rate || "-"}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <!-- Presença -->
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h3 class="card-title">Presença</h3>
+
+          <p class="text-base-content/80 whitespace-pre-line">
+            {@review.enforces_attendance_comments || "Sem comentários sobre presença."}
+          </p>
+
+          <div class="mt-2 flex gap-2">
+            <div class={[
+              "badge",
+              if(@review.enforces_attendance?, do: "badge-warning", else: "badge-success")
+            ]}>
+              {if @review.enforces_attendance?, do: "Cobra presença", else: "Não cobra presença"}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <!-- Recomendação -->
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h3 class="card-title">Recomendação</h3>
+
+          <div class={[
+            "badge text-sm",
+            if(@review.recommends?, do: "badge-success", else: "badge-error")
+          ]}>
+            {if @review.recommends?, do: "Recomenda", else: "Não recomenda"}
+          </div>
+        </div>
+      </div>
+    </div>
     """
   end
 
