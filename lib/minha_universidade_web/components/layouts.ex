@@ -127,6 +127,8 @@ defmodule MinhaUniversidadeWeb.Layouts do
   def landing_app(assigns) do
     ~H"""
     <main class="px-4 py-20 sm:px-6 lg:px-8">
+      <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+      </div>
       {render_slot(@inner_block)}
     </main>
 

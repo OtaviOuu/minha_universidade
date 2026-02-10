@@ -45,7 +45,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Index do
       ~p"/universidades/#{@disciplina_professor.discipline.faculty.university.acronym}/disciplinas-professores/#{@disciplina_professor.slug}"
     }>
       <li class="list-row cursor-pointer">
-        
+
     <!-- texto ocupa o espaço -->
         <div class="flex-1 min-w-0">
           <div>
@@ -55,7 +55,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Index do
             {@disciplina_professor.teacher.name} - {@disciplina_professor.discipline.faculty.acronym}
           </div>
         </div>
-        
+
     <!-- logo totalmente à direita -->
         <div class="size-10 rounded-box shrink-0 ml-auto">
           <img
