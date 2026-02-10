@@ -26,6 +26,7 @@ defmodule MinhaUniversidade.Universities do
 
     resource MinhaUniversidade.Universities.TeacherDiscipline do
       define :list_teacher_discipline, action: :read
+      define :search_teacher_discipline, action: :search, args: [:acronym, :query]
 
       define :list_teacher_discipline_by_university_acronym,
         action: :read_by_university_acronym,

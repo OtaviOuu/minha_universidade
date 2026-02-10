@@ -11,7 +11,7 @@ defmodule MinhaUniversidade.Universities.Faculty do
 
   actions do
     defaults [:read, :destroy, :create, :update]
-    default_accept [:name, :acronym, :university_id]
+    default_accept [:name, :acronym, :university_id, :logo_url]
   end
 
   attributes do
@@ -25,6 +25,11 @@ defmodule MinhaUniversidade.Universities.Faculty do
     attribute :acronym, :string do
       description "The acronym of the faculty"
       allow_nil? false
+    end
+
+    attribute :logo_url, :string do
+      description "The URL of the faculty/departament logo"
+      allow_nil? true
     end
 
     timestamps()

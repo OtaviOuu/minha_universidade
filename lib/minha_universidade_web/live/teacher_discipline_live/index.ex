@@ -21,7 +21,14 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Index do
       </.header>
       <section class="container mx-auto p-4">
         <ul class="list bg-base-100 rounded-box shadow-md">
-          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Most played songs this week</li>
+          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+            <label class="input">
+              <.icon name="hero-magnifying-glass" class="size-5 opacity-60" />
+              <form phx-change="search_disciplina_professor">
+                <input type="search" name="query" placeholder="pesquisar" />
+              </form>
+            </label>
+          </li>
           <.disciplina_professor_row
             :for={disciplina_professor <- @disciplinas_professores}
             disciplina_professor={disciplina_professor}
@@ -34,46 +41,30 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Index do
 
   defp disciplina_professor_row(assigns) do
     ~H"""
-    <li class="list-row cursor-pointer">
-      <.link navigate={
-        ~p"/universidades/#{@disciplina_professor.discipline.faculty.university.acronym}/disciplinas-professores/#{@disciplina_professor.slug}"
-      }>
-        <div></div>
-        <div>
-          <div>{@disciplina_professor.discipline.code} - {@disciplina_professor.discipline.name}</div>
-          <div class="text-xs uppercase font-semibold opacity-60">
+    <.link navigate={
+      ~p"/universidades/#{@disciplina_professor.discipline.faculty.university.acronym}/disciplinas-professores/#{@disciplina_professor.slug}"
+    }>
+      <li class="list-row cursor-pointer">
+        
+    <!-- texto ocupa o espaço -->
+        <div class="flex-1 min-w-0">
+          <div>
+            {@disciplina_professor.discipline.code} - {@disciplina_professor.discipline.name}
+          </div>
+          <div class="text-xs uppercase font-semibold opacity-60 truncate">
             {@disciplina_professor.teacher.name} - {@disciplina_professor.discipline.faculty.acronym}
           </div>
         </div>
-        <button class="btn btn-square btn-ghost">
-          <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g
-              stroke-linejoin="round"
-              stroke-linecap="round"
-              stroke-width="2"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path d="M6 3L20 12 6 21 6 3z"></path>
-            </g>
-          </svg>
-        </button>
-        <button class="btn btn-square btn-ghost">
-          <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g
-              stroke-linejoin="round"
-              stroke-linecap="round"
-              stroke-width="2"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-              </path>
-            </g>
-          </svg>
-        </button>
-      </.link>
-    </li>
+        
+    <!-- logo totalmente à direita -->
+        <div class="size-10 rounded-box shrink-0 ml-auto">
+          <img
+            class="w-full h-full"
+            src={@disciplina_professor.discipline.faculty.logo_url}
+          />
+        </div>
+      </li>
+    </.link>
     """
   end
 
@@ -84,13 +75,42 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Index do
            university_acronym
          ) do
       {:ok, disciplinas_professores} ->
-        dbg(disciplinas_professores)
         assign(socket, :disciplinas_professores, disciplinas_professores)
 
       {:error, reason} ->
         socket
         |> put_flash(:error, "Failed to load teacher disciplines: #{reason}")
         |> push_navigate(to: ~p"/universidades/#{university_acronym}/disciplinas-professores")
+    end
+  end
+
+  def handle_event("search_disciplina_professor", %{"query" => query}, socket) do
+    university_acronym = socket.assigns.university_acronym
+
+    is_empty_query? = String.trim(query) == ""
+
+    with false <- is_empty_query? do
+      case MinhaUniversidade.Universities.search_teacher_discipline(
+             university_acronym,
+             query
+           ) do
+        {:ok, teacher_disciplines} ->
+          socket =
+            socket
+            |> assign(:disciplinas_professores, teacher_disciplines)
+
+          {:noreply, socket}
+
+        {:error, reason} ->
+          socket =
+            socket
+            |> put_flash(:error, "Failed to search teacher disciplines")
+
+          {:noreply, socket}
+      end
+    else
+      true ->
+        {:noreply, assign_disciplinas_professores(socket)}
     end
   end
 end

@@ -17,6 +17,28 @@ defmodule MinhaUniversidade.Universities.TeacherDiscipline do
       primary? true
     end
 
+    read :search do
+      argument :acronym, :string do
+        allow_nil? false
+      end
+
+      argument :query, :string do
+        allow_nil? true
+      end
+
+      prepare build(load: [:teacher, discipline: [faculty: [:university]]])
+
+      filter expr(discipline.faculty.university.acronym == ^arg(:acronym))
+
+      filter expr(
+               ilike(teacher.name, "%" <> ^arg(:query) <> "%") ||
+                 ilike(discipline.code, "%" <> ^arg(:query) <> "%") ||
+                 ilike(discipline.faculty.acronym, "%" <> ^arg(:query) <> "%") ||
+                 ilike(discipline.faculty.university.acronym, "%" <> ^arg(:query) <> "%") ||
+                 ilike(discipline.name, "%" <> ^arg(:query) <> "%")
+             )
+    end
+
     read :read_by_university_acronym do
       argument :university_acronym, :string do
         allow_nil? false
