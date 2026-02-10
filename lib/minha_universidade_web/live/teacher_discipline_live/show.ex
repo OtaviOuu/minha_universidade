@@ -85,9 +85,9 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
       <div class="modal" role="dialog" id={"review-#{@review.id}"}>
         <div class="modal-box w-11/12 max-w-5xl">
           <.review_modal_contend review={@review} />
-          <div class="modal-action">
-            <a href="#" class="btn">Yay!</a>
-          </div>
+          <div class="modal-action"></div>
+
+          <a href="#" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 size">x</a>
         </div>
       </div>
       <.link href={"#review-#{@review.id}"}>
@@ -135,12 +135,6 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
       <:subtitle>
         Avaliação detalhada para ajudar outros estudantes a escolherem as melhores opções para suas jornadas acadêmicas.
       </:subtitle>
-      <:actions>
-        <.icon name="hero-hand-thumb-up" />
-      </:actions>
-      <:actions>
-        <.icon name="hero-hand-thumb-up" />
-      </:actions>
     </.header>
     """
   end
