@@ -216,8 +216,6 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.New do
         {:noreply, socket}
 
       {:error, form} ->
-        dbg(form.errors)
-
         socket =
           socket
           |> assign(:review_form, form)

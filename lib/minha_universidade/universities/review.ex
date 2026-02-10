@@ -108,4 +108,8 @@ defmodule MinhaUniversidade.Universities.Review do
       allow_nil? false
     end
   end
+
+  identities do
+    identity :unique_review_per_user, [:user_id, :teacher_discipline_id], field_names: [:user_id]
+  end
 end
