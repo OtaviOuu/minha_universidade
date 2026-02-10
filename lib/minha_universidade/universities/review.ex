@@ -12,6 +12,24 @@ defmodule MinhaUniversidade.Universities.Review do
   actions do
     defaults [:read, :destroy, :update]
 
+    read :search do
+      argument :teacher_discipline_id, :uuid do
+        allow_nil? false
+      end
+
+      argument :query, :string do
+        allow_nil? false
+      end
+
+      filter expr(teacher_discipline_id == ^arg(:teacher_discipline_id))
+
+      filter expr(
+               ilike(exams_comments, "%" <> ^arg(:query) <> "%") or
+                 ilike(enforces_attendance_comments, "%" <> ^arg(:query) <> "%") or
+                 ilike(geral_comments, "%" <> ^arg(:query) <> "%")
+             )
+    end
+
     create :create do
       accept [
         :teacher_discipline_id,

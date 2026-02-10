@@ -70,7 +70,14 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
   def disciplines_teacher_list(assigns) do
     ~H"""
     <ul class="list bg-base-100 rounded-box shadow-md">
-      <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Most played songs this week</li>
+      <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+        <label class="input">
+          <.icon name="hero-magnifying-glass" class="size-5 opacity-60" />
+          <form phx-change="search_reviews">
+            <input type="search" name="query" placeholder="pesquisar" />
+          </form>
+        </label>
+      </li>
       <.disciplines_teacher_row
         :for={review <- @reviews}
         review={review}
@@ -137,5 +144,28 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
       </:subtitle>
     </.header>
     """
+  end
+
+  def handle_event("search_reviews", %{"query" => query}, socket) do
+    teacher_discipline_id = socket.assigns.teacher_discipline.id
+    is_empty_query? = String.trim(query) == ""
+
+    with false <- is_empty_query? do
+      case MinhaUniversidade.Universities.search_reviews(
+             teacher_discipline_id,
+             query
+           ) do
+        {:ok, reviews} ->
+          {:noreply, assign(socket, :reviews, reviews)}
+
+        {:error, reason} ->
+          {:noreply,
+           socket
+           |> put_flash(:error, "Failed to search reviews: #{reason}")}
+      end
+    else
+      true ->
+        {:noreply, assign_reviews(socket)}
+    end
   end
 end

@@ -19,6 +19,10 @@ defmodule MinhaUniversidade.Universities do
     resource MinhaUniversidade.Universities.Review do
       define :create_review, action: :create
 
+      define :search_reviews,
+        action: :search,
+        args: [:teacher_discipline_id, :query]
+
       define :list_teacher_discipline_reviews,
         action: :read_teacher_discipline,
         args: [:teacher_discipline_id]
