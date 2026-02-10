@@ -116,6 +116,17 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
                 <div class="badge badge-sm badge-primary">
                   Avaliações: {@review.exams_rate}
                 </div>
+
+                <div class="badge badge-sm badge-primary">
+                  {if @review.enforces_attendance?,
+                    do: "Cobra presença",
+                    else: "Não cobra presença"}
+                </div>
+                <div class="badge badge-sm badge-primary">
+                  {if @review.recommends?,
+                    do: "Recomenda",
+                    else: "Não recomenda"}
+                </div>
               </div>
             </div>
           </div>
@@ -141,7 +152,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
       <.header>
         Avaliação
         <:subtitle>
-          Avaliação detalhada para ajudar outros estudantes a escolherem melhores opções.
+          subtexto
         </:subtitle>
       </.header>
       
@@ -156,19 +167,6 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           <div class="mt-2">
             <div class="badge badge-primary">
               Nota geral: {@review.geral_rating || "-"}
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    <!-- Didática -->
-      <div class="card bg-base-100 shadow">
-        <div class="card-body">
-          <h3 class="card-title">Didática</h3>
-
-          <div class="mt-2">
-            <div class="badge badge-secondary">
-              Nota: {@review.didactics_rate || "-"}
             </div>
           </div>
         </div>
@@ -205,6 +203,19 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
               if(@review.enforces_attendance?, do: "badge-warning", else: "badge-success")
             ]}>
               {if @review.enforces_attendance?, do: "Cobra presença", else: "Não cobra presença"}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <!-- Didática -->
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h3 class="card-title">Didática</h3>
+
+          <div class="mt-2">
+            <div class="badge badge-secondary">
+              Nota: {@review.didactics_rate || "-"}
             </div>
           </div>
         </div>
