@@ -124,6 +124,16 @@ defmodule MinhaUniversidadeWeb.Layouts do
     """
   end
 
+  def landing_app(assigns) do
+    ~H"""
+    <main class="px-4 py-20 sm:px-6 lg:px-8">
+      {render_slot(@inner_block)}
+    </main>
+
+    <.flash_group flash={@flash} />
+    """
+  end
+
   @doc """
   Shows the flash group with standard titles and content.
 

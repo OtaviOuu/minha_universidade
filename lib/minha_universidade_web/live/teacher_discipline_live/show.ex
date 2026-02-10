@@ -82,7 +82,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
   def disciplines_teacher_row(assigns) do
     ~H"""
     <li class="list-row flex flex-col gap-2 cursor-pointer hover:bg-base-200 rounded-box p-4">
-      <div class="modal" role="dialog" id={"review-#{@review.id}"}>
+      <div class="modal cursor-default  " role="dialog" id={"review-#{@review.id}"}>
         <div class="modal-box w-11/12 max-w-5xl">
           <.review_modal_contend review={@review} />
           <div class="modal-action"></div>

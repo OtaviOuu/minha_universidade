@@ -41,7 +41,7 @@ defmodule MinhaUniversidadeWeb.Router do
   scope "/", MinhaUniversidadeWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", HomeLive, :index
 
     scope "/universidades" do
       live "/", UniversidadesLive.Index, :index
