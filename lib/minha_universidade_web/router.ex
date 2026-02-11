@@ -21,6 +21,17 @@ defmodule MinhaUniversidadeWeb.Router do
     plug :set_actor, :user
   end
 
+  scope "/" do
+    import AshAdmin.Router
+
+    pipe_through :browser
+
+    ash_admin "/admin",
+              AshAuthentication.Phoenix.LiveSession.opts(
+                on_mount: [{MinhaUniversidadeWeb.LiveUserAuth, :admin_only}]
+              )
+  end
+
   scope "/", MinhaUniversidadeWeb do
     pipe_through :browser
 
@@ -112,16 +123,6 @@ defmodule MinhaUniversidadeWeb.Router do
 
       live_dashboard "/dashboard", metrics: MinhaUniversidadeWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
-    end
-  end
-
-  if Application.compile_env(:minha_universidade, :dev_routes) do
-    import AshAdmin.Router
-
-    scope "/admin" do
-      pipe_through :browser
-
-      ash_admin "/"
     end
   end
 end

@@ -291,6 +291,18 @@ defmodule MinhaUniversidade.Accounts.User do
     end
 
     attribute :confirmed_at, :utc_datetime_usec
+
+    attribute :verified?, :boolean do
+      default false
+      public? true
+    end
+
+    attribute :role, :atom do
+      allow_nil? false
+      default :user
+      constraints one_of: [:user, :admin]
+      public? true
+    end
   end
 
   relationships do

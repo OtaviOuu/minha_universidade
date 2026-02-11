@@ -13,3 +13,7 @@ MAT101-carlos-almeida-usp-icmc
 didatica
 prova
 presença
+
+
+
+1 user pode avaliar um teacher_discipline

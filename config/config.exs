@@ -54,7 +54,11 @@ config :spark,
 config :minha_universidade,
   ecto_repos: [MinhaUniversidade.Repo],
   generators: [timestamp_type: :utc_datetime],
-  ash_domains: [MinhaUniversidade.Universities, MinhaUniversidade.Accounts],
+  ash_domains: [
+    MinhaUniversidade.UserVerification,
+    MinhaUniversidade.Universities,
+    MinhaUniversidade.Accounts
+  ],
   ash_authentication: [return_error_on_invalid_magic_link_token?: true]
 
 # Configure the endpoint

@@ -1,9 +1,13 @@
 defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
   use MinhaUniversidadeWeb, :live_view
 
+  on_mount {MinhaUniversidadeWeb.LiveUserAuth, :current_user}
+  on_mount {MinhaUniversidadeWeb.LiveUserAuth, :live_user_optional}
+
   def mount(%{"slug" => slug, "university_acronym" => university_acronym}, _session, socket) do
     socket =
       socket
+      |> assign(:user, socket.assigns.current_user)
       |> assign(:slug, slug)
       |> assign(:university_acronym, university_acronym)
       |> assign_teacher_discipline(slug)
@@ -23,7 +27,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
         <:subtitle>
           Veja as avaliações e comentários de outros estudantes para ajudar a escolher as melhores opções para suas jornadas acadêmicas.
         </:subtitle>
-        <:actions>
+        <:actions :if={MinhaUniversidade.Universities.can_create_review?(@user)}>
           <.link
             navigate={
               ~p"/universidades/#{@university_acronym}/disciplinas-professores/#{@slug}/avaliar"

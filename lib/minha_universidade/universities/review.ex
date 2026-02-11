@@ -2,7 +2,8 @@ defmodule MinhaUniversidade.Universities.Review do
   use Ash.Resource,
     otp_app: :minha_universidade,
     domain: MinhaUniversidade.Universities,
-    data_layer: AshPostgres.DataLayer
+    data_layer: AshPostgres.DataLayer,
+    authorizers: [Ash.Policy.Authorizer]
 
   postgres do
     table "reviews"
@@ -53,6 +54,17 @@ defmodule MinhaUniversidade.Universities.Review do
       end
 
       filter expr(teacher_discipline_id == ^arg(:teacher_discipline_id))
+    end
+  end
+
+  policies do
+    policy action_type(:create) do
+      authorize_if actor_attribute_equals(:admin, true)
+      authorize_if actor_attribute_equals(:verified?, true)
+    end
+
+    policy action_type(:read) do
+      authorize_if always()
     end
   end
 
