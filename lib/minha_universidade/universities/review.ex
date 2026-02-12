@@ -73,18 +73,22 @@ defmodule MinhaUniversidade.Universities.Review do
 
     attribute :didactics_rate, :integer do
       allow_nil? false
+      public? true
     end
 
     attribute :exams_rate, :integer do
       allow_nil? false
+      public? true
     end
 
     attribute :exams_comments, :string do
       allow_nil? false
+      public? true
     end
 
     attribute :enforces_attendance?, :boolean do
       allow_nil? false
+      public? true
     end
 
     attribute :enforces_attendance_comments, :string do

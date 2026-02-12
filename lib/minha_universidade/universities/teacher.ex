@@ -20,11 +20,13 @@ defmodule MinhaUniversidade.Universities.Teacher do
     attribute :name, :string do
       description "The name of the teacher"
       allow_nil? true
+      public? true
     end
 
     attribute :email, :string do
       description "The email of the teacher"
       allow_nil? true
+      public? true
     end
 
     timestamps()

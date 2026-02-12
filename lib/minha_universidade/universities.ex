@@ -1,7 +1,19 @@
 defmodule MinhaUniversidade.Universities do
   use Ash.Domain,
     otp_app: :minha_universidade,
-    extensions: [AshAdmin.Domain, AshPhoenix]
+    extensions: [AshJsonApi.Domain, AshAdmin.Domain, AshPhoenix]
+
+  json_api do
+    routes do
+      base_route "/universities", MinhaUniversidade.Universities.University do
+        index :read
+      end
+
+      base_route "/teacher-disciplines", MinhaUniversidade.Universities.TeacherDiscipline do
+        index :read_by_university_acronym
+      end
+    end
+  end
 
   admin do
     show? true

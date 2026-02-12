@@ -2,7 +2,14 @@ defmodule MinhaUniversidade.Universities.TeacherDiscipline do
   use Ash.Resource,
     otp_app: :minha_universidade,
     domain: MinhaUniversidade.Universities,
-    data_layer: AshPostgres.DataLayer
+    data_layer: AshPostgres.DataLayer,
+    extensions: [AshJsonApi.Resource]
+
+  json_api do
+    type "teacher_discipline"
+
+    includes [:teacher, discipline: [faculty: [:university]], reviews: []]
+  end
 
   postgres do
     table "teacher_disciplines"
@@ -63,16 +70,19 @@ defmodule MinhaUniversidade.Universities.TeacherDiscipline do
     belongs_to :teacher, MinhaUniversidade.Universities.Teacher do
       source_attribute :teacher_id
       destination_attribute :id
+      public? true
     end
 
     belongs_to :discipline, MinhaUniversidade.Universities.Discipline do
       source_attribute :discipline_id
       destination_attribute :id
+      public? true
     end
 
     has_many :reviews, MinhaUniversidade.Universities.Review do
       source_attribute :id
       destination_attribute :teacher_discipline_id
+      public? true
     end
   end
 
