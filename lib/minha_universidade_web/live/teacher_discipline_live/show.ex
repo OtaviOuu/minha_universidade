@@ -103,13 +103,9 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
 
       <.link href={"#review-#{@review.id}"}>
         <div class="flex items-start gap-3 w-full">
-          <img
-            class="size-10 rounded-box shrink-0"
-            src="https://img.daisyui.com/images/profile/demo/1@94.webp"
-          />
 
           <div class="flex flex-col gap-1 w-full min-w-0">
-            
+
     <!-- Linha superior -->
             <div class="flex items-start gap-2 w-full">
               <div class="truncate font-medium">Dio Lupa</div>
@@ -118,7 +114,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
                 Geral: {@review.geral_rating}
               </div>
             </div>
-            
+
     <!-- Badges -->
             <div class="flex flex-wrap gap-1.5 text-xs font-semibold opacity-70">
               <div class="badge badge-primary badge-sm">
@@ -141,7 +137,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
                   else: "Não recomenda"}
               </div>
             </div>
-            
+
     <!-- Comentário -->
             <p class="text-xs opacity-80">
               {@review.geral_comments |> String.slice(0..200)}...
@@ -164,7 +160,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           subtexto
         </:subtitle>
       </.header>
-      
+
     <!-- Geral -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
@@ -180,7 +176,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           </div>
         </div>
       </div>
-      
+
     <!-- Provas -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
@@ -196,7 +192,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           </div>
         </div>
       </div>
-      
+
     <!-- Presença -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
@@ -216,7 +212,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           </div>
         </div>
       </div>
-      
+
     <!-- Didática -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
@@ -229,7 +225,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           </div>
         </div>
       </div>
-      
+
     <!-- Recomendação -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
