@@ -92,57 +92,62 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
 
   def disciplines_teacher_row(assigns) do
     ~H"""
-    <li class="list-row flex flex-col gap-2 cursor-pointer hover:bg-base-200 rounded-box p-4">
-      <div class="modal cursor-default  " role="dialog" id={"review-#{@review.id}"}>
+    <li class="list-row flex flex-col gap-2 cursor-pointer hover:bg-base-200 rounded-box p-3">
+      <div class="modal cursor-default" role="dialog" id={"review-#{@review.id}"}>
         <div class="modal-box w-11/12 max-w-5xl">
           <.review_modal_content review={@review} />
           <div class="modal-action"></div>
-
-          <a href="#" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 size">x</a>
+          <a href="#" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">x</a>
         </div>
       </div>
+
       <.link href={"#review-#{@review.id}"}>
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <img
-              class="size-10 rounded-box"
-              src="https://img.daisyui.com/images/profile/demo/1@94.webp"
-            />
+        <div class="flex items-start gap-3 w-full">
+          <img
+            class="size-10 rounded-box shrink-0"
+            src="https://img.daisyui.com/images/profile/demo/1@94.webp"
+          />
 
-            <div>
-              <div>Dio Lupa</div>
+          <div class="flex flex-col gap-1 w-full min-w-0">
+            
+    <!-- Linha superior -->
+            <div class="flex items-start gap-2 w-full">
+              <div class="truncate font-medium">Dio Lupa</div>
 
-              <div class="flex gap-2 text-xs uppercase font-semibold opacity-60">
-                <div class="badge badge-sm badge-primary">
-                  Didática: {@review.didactics_rate}
-                </div>
-
-                <div class="badge badge-sm badge-primary">
-                  Avaliações: {@review.exams_rate}
-                </div>
-
-                <div class="badge badge-sm badge-primary">
-                  {if @review.enforces_attendance?,
-                    do: "Cobra presença",
-                    else: "Não cobra presença"}
-                </div>
-                <div class="badge badge-sm badge-primary">
-                  {if @review.recommends?,
-                    do: "Recomenda",
-                    else: "Não recomenda"}
-                </div>
+              <div class="badge badge-primary badge-sm ml-auto shrink-0">
+                Geral: {@review.geral_rating}
               </div>
             </div>
-          </div>
+            
+    <!-- Badges -->
+            <div class="flex flex-wrap gap-1.5 text-xs font-semibold opacity-70">
+              <div class="badge badge-primary badge-sm">
+                Didática: {@review.didactics_rate}
+              </div>
 
-          <div class="badge badge-primary">
-            Geral: {@review.geral_rating}
+              <div class="badge badge-primary badge-sm">
+                Avaliações: {@review.exams_rate}
+              </div>
+
+              <div class="badge badge-primary badge-sm">
+                {if @review.enforces_attendance?,
+                  do: "Cobra presença",
+                  else: "Não cobra presença"}
+              </div>
+
+              <div class="badge badge-primary badge-sm">
+                {if @review.recommends?,
+                  do: "Recomenda",
+                  else: "Não recomenda"}
+              </div>
+            </div>
+            
+    <!-- Comentário -->
+            <p class="text-xs opacity-80">
+              {@review.geral_comments}
+            </p>
           </div>
         </div>
-
-        <p class="text-xs opacity-80">
-          {@review.geral_comments}
-        </p>
       </.link>
     </li>
     """
