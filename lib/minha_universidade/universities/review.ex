@@ -13,6 +13,19 @@ defmodule MinhaUniversidade.Universities.Review do
   actions do
     defaults [:read, :destroy, :update]
 
+    default_accept [
+      :teacher_discipline_id,
+      :user_id,
+      :didactics_rate,
+      :exams_rate,
+      :exams_comments,
+      :enforces_attendance?,
+      :enforces_attendance_comments,
+      :geral_rating,
+      :geral_comments,
+      :recommends?
+    ]
+
     read :search do
       argument :teacher_discipline_id, :uuid do
         allow_nil? false

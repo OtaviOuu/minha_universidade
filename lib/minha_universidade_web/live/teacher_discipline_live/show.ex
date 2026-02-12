@@ -144,7 +144,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
             
     <!-- Comentário -->
             <p class="text-xs opacity-80">
-              {@review.geral_comments}
+              {@review.geral_comments |> String.slice(0..200)}...
             </p>
           </div>
         </div>

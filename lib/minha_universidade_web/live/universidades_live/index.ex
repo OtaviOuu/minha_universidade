@@ -19,11 +19,6 @@ defmodule MinhaUniversidadeWeb.UniversidadesLive.Index do
         <:subtitle>
           Explore as universidades disponíveis e encontre a instituição perfeita para sua jornada acadêmica.
         </:subtitle>
-        <:actions>
-          <.link navigate={~p"/"} class="btn btn-secondary">
-            Voltar para a página inicial
-          </.link>
-        </:actions>
       </.header>
 
       <section>
