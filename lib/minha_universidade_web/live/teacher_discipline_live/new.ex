@@ -34,7 +34,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.New do
       <section class="flex flex-col gap-4">
         <.teacher_discipline_review_badge teacher_discipline={@teacher_discipline} />
 
-        <.discipline_teacher_data_card />
+        <.discipline_teacher_data_card teacher_discipline={@teacher_discipline}/>
 
         <.form for={@review_form} phx-submit="submit_review">
           <div class="flex flex-row  gap-4 mb-4">
@@ -150,7 +150,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.New do
         <div class="stat-figure text-secondary">
           <div class="avatar avatar-online">
             <div class="w-16 rounded-full">
-              <img src="https://img.daisyui.com/images/profile/demo/anakeen@192.webp" />
+              <img src={@teacher_discipline.teacher.photo_url} />
             </div>
           </div>
         </div>

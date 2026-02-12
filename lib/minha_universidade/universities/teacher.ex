@@ -11,7 +11,7 @@ defmodule MinhaUniversidade.Universities.Teacher do
 
   actions do
     defaults [:read, :destroy, :create, :update]
-    default_accept [:name, :email]
+    default_accept [:name, :email, :photo_url]
   end
 
   attributes do
@@ -25,6 +25,12 @@ defmodule MinhaUniversidade.Universities.Teacher do
 
     attribute :email, :string do
       description "The email of the teacher"
+      allow_nil? true
+      public? true
+    end
+
+    attribute :photo_url, :string do
+      description "The photo URL of the teacher"
       allow_nil? true
       public? true
     end
