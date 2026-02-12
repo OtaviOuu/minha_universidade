@@ -216,8 +216,14 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.New do
         {:noreply, socket}
 
       {:error, form} ->
+        err = Keyword.get(form.errors, :user_id)
+
         socket =
-          socket
+          if err do
+            put_flash(socket, :error, "Você já avaliou essa disciplina com esse professor.")
+          else
+            socket
+          end
           |> assign(:review_form, form)
 
         {:noreply, socket}

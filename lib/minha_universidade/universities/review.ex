@@ -139,6 +139,8 @@ defmodule MinhaUniversidade.Universities.Review do
   end
 
   identities do
-    identity :unique_review_per_user, [:user_id, :teacher_discipline_id], field_names: [:user_id]
+    identity :unique_review_per_user, [:user_id, :teacher_discipline_id],
+      field_names: [:user_id],
+      message: "You have already reviewed this teacher and discipline"
   end
 end
