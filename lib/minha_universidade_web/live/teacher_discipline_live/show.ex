@@ -27,8 +27,8 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
         <:subtitle>
           Veja as avaliações e comentários de outros estudantes para ajudar a escolher as melhores opções para suas jornadas acadêmicas.
         </:subtitle>
-        <:actions :if={}>
-          <% if MinhaUniversidade.Universities.can_create_review?(@user) do %>
+        <:actions>
+          <%= if MinhaUniversidade.Universities.can_create_review?(@user) do %>
             <.link
               navigate={
                 ~p"/universidades/#{@university_acronym}/disciplinas-professores/#{@slug}/avaliar"
