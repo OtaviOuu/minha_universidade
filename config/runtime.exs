@@ -73,6 +73,10 @@ if config_env() == :prod do
       System.get_env("TOKEN_SIGNING_SECRET") ||
         raise("Missing environment variable `TOKEN_SIGNING_SECRET`!")
 
+  config :minha_universidade, MinhaUniversidade.Mailer,
+    adapter: Swoosh.Adapters.Sendgrid,
+    api_key: System.get_env("SENDGRID_API_KEY")
+
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key
