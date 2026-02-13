@@ -2,11 +2,9 @@ defmodule MinhaUniversidadeWeb.UniversidadesLive.Index do
   use MinhaUniversidadeWeb, :live_view
 
   def mount(_params, _session, socket) do
-    {:ok, universities} = MinhaUniversidade.Universities.list_universities()
-
     socket =
       socket
-      |> assign(:universities, universities)
+      |> assign_universities
 
     {:ok, socket}
   end
@@ -22,7 +20,11 @@ defmodule MinhaUniversidadeWeb.UniversidadesLive.Index do
       </.header>
 
       <section>
-        <.universities_list universities={@universities} />
+        <.async_result :let={universities} assign={@universities}>
+          <:loading>Carregando universidades...</:loading>
+          <:failed :let={_failure}>error</:failed>
+          <.universities_list universities={universities} />
+        </.async_result>
       </section>
     </Layouts.app>
     """
@@ -47,5 +49,11 @@ defmodule MinhaUniversidadeWeb.UniversidadesLive.Index do
       <img src={@university.logo_url} alt="USP" class="h-16 w-auto object-contain" />
     </.link>
     """
+  end
+
+  defp assign_universities(socket) do
+    assign_async(socket, :universities, fn ->
+      {:ok, %{universities: MinhaUniversidade.Universities.list_universities!()}}
+    end)
   end
 end
