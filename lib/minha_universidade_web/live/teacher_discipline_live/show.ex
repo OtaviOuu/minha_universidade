@@ -27,15 +27,21 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
         <:subtitle>
           Veja as avaliações e comentários de outros estudantes para ajudar a escolher as melhores opções para suas jornadas acadêmicas.
         </:subtitle>
-        <:actions :if={MinhaUniversidade.Universities.can_create_review?(@user)}>
-          <.link
-            navigate={
-              ~p"/universidades/#{@university_acronym}/disciplinas-professores/#{@slug}/avaliar"
-            }
-            class="btn btn-primary"
-          >
-            Avaliar
-          </.link>
+        <:actions :if={}>
+          <% if MinhaUniversidade.Universities.can_create_review?(@user) do %>
+            <.link
+              navigate={
+                ~p"/universidades/#{@university_acronym}/disciplinas-professores/#{@slug}/avaliar"
+              }
+              class="btn btn-primary"
+            >
+              Avaliar
+            </.link>
+          <% else %>
+            <.button class="btn btn-disabled">
+              Avaliar
+            </.button>
+          <% end %>
         </:actions>
       </.header>
 
@@ -103,9 +109,8 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
 
       <.link href={"#review-#{@review.id}"}>
         <div class="flex items-start gap-3 w-full">
-
           <div class="flex flex-col gap-1 w-full min-w-0">
-
+            
     <!-- Linha superior -->
             <div class="flex items-start gap-2 w-full">
               <div class="truncate font-medium">Dio Lupa</div>
@@ -114,7 +119,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
                 Geral: {@review.geral_rating}
               </div>
             </div>
-
+            
     <!-- Badges -->
             <div class="flex flex-wrap gap-1.5 text-xs font-semibold opacity-70">
               <div class="badge badge-primary badge-sm">
@@ -137,7 +142,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
                   else: "Não recomenda"}
               </div>
             </div>
-
+            
     <!-- Comentário -->
             <p class="text-xs opacity-80">
               {@review.geral_comments |> String.slice(0..200)}...
@@ -160,7 +165,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           subtexto
         </:subtitle>
       </.header>
-
+      
     <!-- Geral -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
@@ -176,7 +181,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           </div>
         </div>
       </div>
-
+      
     <!-- Provas -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
@@ -192,7 +197,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           </div>
         </div>
       </div>
-
+      
     <!-- Presença -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
@@ -212,7 +217,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           </div>
         </div>
       </div>
-
+      
     <!-- Didática -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
@@ -225,7 +230,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.Show do
           </div>
         </div>
       </div>
-
+      
     <!-- Recomendação -->
       <div class="card bg-base-100 shadow">
         <div class="card-body">
