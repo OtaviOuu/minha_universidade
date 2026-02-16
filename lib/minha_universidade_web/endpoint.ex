@@ -53,4 +53,10 @@ defmodule MinhaUniversidadeWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug MinhaUniversidadeWeb.Router
+
+  plug Corsica,
+    origins: ["https://minha-universidade.onrender.com", "http://localhost:3000"],
+    allow_headers: ["authorization", "content-type"],
+    allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_credentials: true
 end
