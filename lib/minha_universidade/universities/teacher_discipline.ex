@@ -7,7 +7,6 @@ defmodule MinhaUniversidade.Universities.TeacherDiscipline do
 
   json_api do
     type "teacher_discipline"
-
     includes [:teacher, discipline: [faculty: [:university]], reviews: []]
   end
 
@@ -98,6 +97,7 @@ defmodule MinhaUniversidade.Universities.TeacherDiscipline do
                   discipline.faculty.acronym,
                   discipline.faculty.university.acronym
                 )
-              )
+              ),
+              public?: true
   end
 end
