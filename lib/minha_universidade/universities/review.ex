@@ -3,7 +3,12 @@ defmodule MinhaUniversidade.Universities.Review do
     otp_app: :minha_universidade,
     domain: MinhaUniversidade.Universities,
     data_layer: AshPostgres.DataLayer,
-    authorizers: [Ash.Policy.Authorizer]
+    authorizers: [Ash.Policy.Authorizer],
+    extensions: [AshJsonApi.Resource]
+
+  json_api do
+    type "review"
+  end
 
   postgres do
     table "reviews"
@@ -61,7 +66,7 @@ defmodule MinhaUniversidade.Universities.Review do
       change relate_actor(:user, allow_nil?: false)
     end
 
-    read :read_teacher_discipline do
+    read :read_reviews do
       argument :teacher_discipline_id, :uuid do
         allow_nil? false
       end
@@ -106,20 +111,24 @@ defmodule MinhaUniversidade.Universities.Review do
 
     attribute :enforces_attendance_comments, :string do
       allow_nil? false
+      public? true
     end
 
     attribute :geral_rating, :integer do
       description "The rating of the review"
       allow_nil? false
+      public? true
     end
 
     attribute :geral_comments, :string do
       allow_nil? false
+      public? true
     end
 
     attribute :recommends?, :boolean do
       description "Whether the reviewer recommends the teacher or not"
       allow_nil? false
+      public? true
     end
 
     timestamps()
@@ -129,12 +138,14 @@ defmodule MinhaUniversidade.Universities.Review do
     belongs_to :user, MinhaUniversidade.Accounts.User do
       source_attribute :user_id
       destination_attribute :id
+      public? true
     end
 
     belongs_to :teacher_discipline, MinhaUniversidade.Universities.TeacherDiscipline do
       source_attribute :teacher_discipline_id
       destination_attribute :id
       allow_nil? false
+      public? true
     end
   end
 

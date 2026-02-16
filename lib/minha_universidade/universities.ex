@@ -12,6 +12,10 @@ defmodule MinhaUniversidade.Universities do
       base_route "/teacher-disciplines", MinhaUniversidade.Universities.TeacherDiscipline do
         index :read_by_university_acronym
       end
+
+      base_route "/reviews", MinhaUniversidade.Universities.Review do
+        index :read_reviews
+      end
     end
   end
 
@@ -36,7 +40,7 @@ defmodule MinhaUniversidade.Universities do
         args: [:teacher_discipline_id, :query]
 
       define :list_teacher_discipline_reviews,
-        action: :read_teacher_discipline,
+        action: :read_reviews,
         args: [:teacher_discipline_id]
     end
 
