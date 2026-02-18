@@ -63,6 +63,8 @@ defmodule MinhaUniversidade.Universities.Review do
         :recommends?
       ]
 
+      validate MinhaUniversidade.Universities.Validations.UserReviewTheirUniversity
+
       change relate_actor(:user, allow_nil?: false)
     end
 

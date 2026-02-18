@@ -1,4 +1,6 @@
 defmodule MinhaUniversidade.UserVerification.VerificationRequest do
+  require Ash.Resource.Change.Builtins
+
   use Ash.Resource,
     otp_app: :minha_universidade,
     domain: MinhaUniversidade.UserVerification,
@@ -12,7 +14,16 @@ defmodule MinhaUniversidade.UserVerification.VerificationRequest do
 
   actions do
     defaults [:read, :destroy, :create, :update]
-    default_accept [:comment, :document, :status, :user_id]
+    default_accept [:comment, :document, :status, :user_id, :applied_university_id]
+
+    update :approve_request do
+      require_atomic? false
+      accept [:status]
+
+      change set_attribute(:status, :approved)
+
+      change MinhaUniversidade.UserVerification.Changes.AttachUniversityToUser
+    end
   end
 
   policies do
@@ -35,7 +46,7 @@ defmodule MinhaUniversidade.UserVerification.VerificationRequest do
     attribute :status, :atom do
       allow_nil? false
       default :pending
-      constraints one_of: [:aproved, :rejected, :pending]
+      constraints one_of: [:approved, :rejected, :pending]
     end
 
     timestamps()
@@ -44,6 +55,12 @@ defmodule MinhaUniversidade.UserVerification.VerificationRequest do
   relationships do
     belongs_to :user, MinhaUniversidade.Accounts.User do
       allow_nil? false
+    end
+
+    belongs_to :applied_university, MinhaUniversidade.Universities.University do
+      allow_nil? false
+      source_attribute :applied_university_id
+      destination_attribute :id
     end
   end
 end

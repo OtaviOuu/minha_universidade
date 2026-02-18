@@ -46,5 +46,10 @@ defmodule MinhaUniversidade.Universities.University do
       source_attribute :id
       destination_attribute :university_id
     end
+
+    has_many :users, MinhaUniversidade.Accounts.User do
+      source_attribute :id
+      destination_attribute :university_id
+    end
   end
 end

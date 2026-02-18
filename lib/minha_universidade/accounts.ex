@@ -7,6 +7,9 @@ defmodule MinhaUniversidade.Accounts do
 
   resources do
     resource MinhaUniversidade.Accounts.Token
-    resource MinhaUniversidade.Accounts.User
+
+    resource MinhaUniversidade.Accounts.User do
+      define :attach_university, action: :attach_university, args: [:university_id]
+    end
   end
 end

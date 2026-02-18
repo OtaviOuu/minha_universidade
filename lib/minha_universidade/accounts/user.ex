@@ -58,6 +58,17 @@ defmodule MinhaUniversidade.Accounts.User do
   actions do
     defaults [:read]
 
+    update :attach_university do
+      accept [:university_id]
+
+      argument :university_id, :uuid do
+        description "The ID of the university to attach to the user"
+        allow_nil? false
+      end
+
+      change set_attribute(:university_id, arg(:university_id))
+    end
+
     read :get_by_subject do
       description "Get a user by the subject claim in a JWT"
       argument :subject, :string, allow_nil?: false
@@ -263,6 +274,10 @@ defmodule MinhaUniversidade.Accounts.User do
   end
 
   policies do
+    policy action_type(:update) do
+      authorize_if actor_attribute_equals(:role, :admin)
+    end
+
     bypass AshAuthentication.Checks.AshAuthenticationInteraction do
       authorize_if always()
     end
@@ -299,6 +314,12 @@ defmodule MinhaUniversidade.Accounts.User do
     has_many :reviews, MinhaUniversidade.Universities.Review do
       source_attribute :id
       destination_attribute :user_id
+    end
+
+    belongs_to :university, MinhaUniversidade.Universities.University do
+      source_attribute :university_id
+      destination_attribute :id
+      allow_nil? true
     end
   end
 
