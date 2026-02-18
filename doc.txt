@@ -17,3 +17,7 @@ presença
 
 
 1 user pode avaliar um teacher_discipline
+
+
+
+user só poder avaliar institutos da sua universidade

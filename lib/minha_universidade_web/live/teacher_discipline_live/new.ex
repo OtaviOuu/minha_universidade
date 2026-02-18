@@ -34,7 +34,7 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.New do
       <section class="flex flex-col gap-4">
         <.teacher_discipline_review_badge teacher_discipline={@teacher_discipline} />
 
-        <.discipline_teacher_data_card teacher_discipline={@teacher_discipline}/>
+        <.discipline_teacher_data_card teacher_discipline={@teacher_discipline} />
 
         <.form for={@review_form} phx-submit="submit_review">
           <div class="flex flex-row  gap-4 mb-4">
@@ -177,8 +177,13 @@ defmodule MinhaUniversidadeWeb.TeacherDisciplineLive.New do
   end
 
   def assign_review_form(socket) do
+    teacher_discipline = socket.assigns.teacher_discipline
+
     form =
-      MinhaUniversidade.Universities.form_to_create_review(actor: socket.assigns.current_user)
+      MinhaUniversidade.Universities.form_to_create_review(
+        actor: socket.assigns.current_user,
+        context: %{university_id: teacher_discipline.discipline.faculty.university_id}
+      )
       |> to_form
 
     socket
