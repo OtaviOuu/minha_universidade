@@ -27,7 +27,7 @@ defmodule MinhaUniversidade.UserVerification.VerificationRequest do
   end
 
   policies do
-    policy always() do
+    policy action_type([:read, :create, :update]) do
       authorize_if actor_attribute_equals(:role, :admin)
     end
   end

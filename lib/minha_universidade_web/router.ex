@@ -59,6 +59,20 @@ defmodule MinhaUniversidadeWeb.Router do
     end
   end
 
+  scope "/adm", MinhaUniversidadeWeb do
+    pipe_through :browser
+
+    live_session :adm_user_routes,
+      on_mount: [
+        {MinhaUniversidadeWeb.LiveUserAuth, :current_user},
+        {MinhaUniversidadeWeb.LiveUserAuth, :live_user_required},
+        {MinhaUniversidadeWeb.LiveUserAuth, :admin_only}
+      ] do
+      live "/pedidos", AdminLive.VerificationsLive.Index, :index
+      live "/pedidos/:id", AdminLive.VerificationsLive.Show, :show
+    end
+  end
+
   scope "/", MinhaUniversidadeWeb do
     pipe_through :browser
 

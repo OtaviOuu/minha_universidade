@@ -52,7 +52,15 @@ defmodule MinhaUniversidadeWeb.LiveUserAuth do
       if socket.assigns[:current_user].role == :admin do
         {:cont, socket}
       else
-        {:halt, Phoenix.LiveView.redirect(socket, to: ~p"/")}
+        socket =
+          socket
+          |> Phoenix.LiveView.put_flash(
+            :error,
+            "Acesso negado: apenas administradores podem acessar esta página."
+          )
+          |> Phoenix.LiveView.redirect(to: ~p"/")
+
+        {:halt, socket}
       end
 
       # If user isn't logged in, redirect to sign in page

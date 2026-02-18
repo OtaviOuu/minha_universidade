@@ -8,6 +8,8 @@ defmodule MinhaUniversidade.UserVerification do
   end
 
   resources do
-    resource MinhaUniversidade.UserVerification.VerificationRequest
+    resource MinhaUniversidade.UserVerification.VerificationRequest do
+      define :list_requests, action: :read
+    end
   end
 end

@@ -274,8 +274,12 @@ defmodule MinhaUniversidade.Accounts.User do
   end
 
   policies do
-    policy action_type(:update) do
+    policy action_type([:update]) do
       authorize_if actor_attribute_equals(:role, :admin)
+    end
+
+    policy action_type(:read) do
+      authorize_if always()
     end
 
     bypass AshAuthentication.Checks.AshAuthenticationInteraction do
